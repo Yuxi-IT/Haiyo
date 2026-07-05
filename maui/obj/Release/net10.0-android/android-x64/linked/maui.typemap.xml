@@ -1,0 +1,11 @@
+<api type="release" assembly-name="maui" mvid="52880cc552094ecb84bf55933bb8bb9b">
+  <module assembly-name="maui" mvid="52880cc552094ecb84bf55933bb8bb9b" mvid-bytes="xQyIUglSy06Ev1WTO7i7mw==">
+    <types-scratch>
+      <entry key="crc64ebab215de862fb6d/MainActivity" java-name="crc64ebab215de862fb6d/MainActivity" managed-type-name="maui.MainActivity" token="33554439" />
+      <entry key="crc642bf9dc2dd4ff72c8/CameraService_ImageListener" java-name="crc642bf9dc2dd4ff72c8/CameraService_ImageListener" managed-type-name="maui.Services.CameraService/ImageListener" token="33554442" />
+      <entry key="crc642bf9dc2dd4ff72c8/CameraService_CameraStateCallback" java-name="crc642bf9dc2dd4ff72c8/CameraService_CameraStateCallback" managed-type-name="maui.Services.CameraService/CameraStateCallback" token="33554443" />
+      <entry key="crc642bf9dc2dd4ff72c8/CameraService_SessionCallback" java-name="crc642bf9dc2dd4ff72c8/CameraService_SessionCallback" managed-type-name="maui.Services.CameraService/SessionCallback" token="33554444" />
+      <entry key="crc642bf9dc2dd4ff72c8/SensorService" java-name="crc642bf9dc2dd4ff72c8/SensorService" managed-type-name="maui.Services.SensorService" token="33554449" />
+    </types-scratch>
+  </module>
+</api>

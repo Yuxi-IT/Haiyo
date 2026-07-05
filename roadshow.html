@@ -1,0 +1,1727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全场景智能家居监测系统 - 路演报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700;900&family=DM+Serif+Display&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#FAFAF8;
+  --card:#FFFFFF;
+  --text-primary:#2C2C2C;
+  --text-secondary:#6B6B6B;
+  --text-muted:#9A9A9A;
+  --rose:#F5E0E3;--rose-deep:#E8B4B8;--rose-text:#8B4557;
+  --mint:#DCF0E4;--mint-deep:#A8D5B8;--mint-text:#3D7A5F;
+  --blue:#DCE8F5;--blue-deep:#A3C4E0;--blue-text:#3B6B99;
+  --lavender:#EDE4F5;--lavender-deep:#C5A8E0;--lavender-text:#6B4D8A;
+  --peach:#F5E8D8;--peach-deep:#E0C8A8;--peach-text:#8A6B3D;
+  --lemon:#F5F0D8;--lemon-deep:#E0D8A0;--lemon-text:#7A7030;
+  --coral:#F5DAD8;--coral-deep:#E0A8A3;--coral-text:#8B4A45;
+  --shadow:0 2px 20px rgba(0,0,0,.04);
+  --shadow-lg:0 8px 40px rgba(0,0,0,.06);
+}
+html{scroll-behavior:smooth;overflow:hidden}
+body{font-family:'Noto Sans SC',sans-serif;background:var(--bg);color:var(--text-primary);overflow:hidden;height:100vh;width:100vw}
+
+/* ===== Slide System ===== */
+.slides-container{position:relative;width:100%;height:100vh;overflow:hidden}
+.slide{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .6s ease,transform .6s ease;transform:translateY(30px);overflow-y:auto;padding:0}
+.slide.active{opacity:1;pointer-events:auto;transform:translateY(0);z-index:10}
+
+/* ===== Navigation ===== */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 32px}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:#D0D0D0;cursor:pointer;transition:all .3s ease;border:none;padding:0}
+.nav-dot.active{background:var(--lavender-deep);width:28px;border-radius:4px}
+.nav-dot:hover{background:var(--rose-deep)}
+.page-num{position:fixed;top:24px;right:32px;z-index:100;font-family:'DM Serif Display',serif;font-size:14px;color:var(--text-muted);letter-spacing:1px}
+.page-num span{color:var(--text-primary);font-weight:600;font-size:20px}
+
+/* ===== Fullscreen Button ===== */
+.fullscreen-btn{position:fixed;top:24px;left:32px;z-index:100;width:36px;height:36px;border:none;border-radius:10px;background:var(--card);box-shadow:var(--shadow);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s ease}
+.fullscreen-btn:hover{transform:scale(1.08);box-shadow:var(--shadow-lg)}
+.fullscreen-btn svg{width:18px;height:18px;stroke:var(--text-secondary);fill:none;stroke-width:1.5}
+
+/* ===== First Page Hint ===== */
+.first-page-hint{position:fixed;bottom:60px;left:50%;transform:translateX(-50%);z-index:90;display:flex;align-items:center;gap:8px;padding:8px 18px;border-radius:20px;background:rgba(255,255,255,.85);box-shadow:var(--shadow);font-size:13px;color:var(--text-muted);animation:hintPulse 2.5s ease-in-out infinite;pointer-events:none;transition:opacity .4s ease}
+.first-page-hint.hidden{opacity:0}
+@keyframes hintPulse{0%,100%{opacity:.7;transform:translateX(-50%) translateY(0)}50%{opacity:1;transform:translateX(-50%) translateY(-4px)}}
+
+/* ===== Presenter Notes ===== */
+.notes-overlay{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(30,30,30,.92);backdrop-filter:blur(8px);color:#fff;padding:16px 48px;font-size:15px;line-height:1.7;transform:translateY(100%);transition:transform .3s ease;max-height:140px;overflow-y:auto;border-top:2px solid var(--lavender-deep)}
+.notes-overlay.visible{transform:translateY(0)}
+.notes-overlay .notes-label{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--lavender-deep);margin-bottom:6px;font-weight:600}
+
+/* ===== Slide Header ===== */
+.slide-header{padding:32px 64px 20px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.slide-header .logo{font-family:'Playfair Display',serif;font-size:16px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase}
+.slide-header .section-num{font-family:'DM Serif Display',serif;font-size:64px;color:rgba(0,0,0,.04);font-weight:700;line-height:1}
+
+.slide-body{flex:1;padding:0 64px 80px;display:flex;flex-direction:column;justify-content:flex-start;gap:28px}
+
+/* ===== Typography ===== */
+.title-hero{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;line-height:1.15;letter-spacing:-1px;color:var(--text-primary)}
+.title-section{font-size:36px;font-weight:700;line-height:1.3;letter-spacing:-0.5px}
+.title-card{font-size:18px;font-weight:600;line-height:1.4}
+.subtitle{font-size:16px;color:var(--text-secondary);line-height:1.7;font-weight:400;letter-spacing:.3px}
+.label{font-size:14px;text-transform:uppercase;letter-spacing:3px;font-weight:600;color:var(--text-muted)}
+
+/* ===== Grid Layouts ===== */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:16px}
+.grid-2-1{display:grid;grid-template-columns:2fr 1fr;gap:24px}
+
+/* ===== Cards ===== */
+.card{background:var(--card);border-radius:20px;padding:28px;box-shadow:var(--shadow);transition:transform .3s ease,box-shadow .3s ease;border:1px solid rgba(0,0,0,.03)}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.card-tinted{border:none}
+.card-tinted.rose{background:var(--rose)}
+.card-tinted.mint{background:var(--mint)}
+.card-tinted.blue{background:var(--blue)}
+.card-tinted.lavender{background:var(--lavender)}
+.card-tinted.peach{background:var(--peach)}
+.card-tinted.lemon{background:var(--lemon)}
+.card-tinted.coral{background:var(--coral)}
+
+/* ===== Icon Container ===== */
+.icon-box{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.icon-box svg{width:24px;height:24px;stroke-width:1.5}
+.icon-box.sm{width:36px;height:36px;border-radius:10px}
+.icon-box.sm svg{width:18px;height:18px}
+.icon-box.lg{width:64px;height:64px;border-radius:18px}
+.icon-box.lg svg{width:32px;height:32px}
+
+.icon-box.rose-bg{background:var(--rose)}
+.icon-box.rose-bg svg{stroke:var(--rose-text);fill:none}
+.icon-box.mint-bg{background:var(--mint)}
+.icon-box.mint-bg svg{stroke:var(--mint-text);fill:none}
+.icon-box.blue-bg{background:var(--blue)}
+.icon-box.blue-bg svg{stroke:var(--blue-text);fill:none}
+.icon-box.lavender-bg{background:var(--lavender)}
+.icon-box.lavender-bg svg{stroke:var(--lavender-text);fill:none}
+.icon-box.peach-bg{background:var(--peach)}
+.icon-box.peach-bg svg{stroke:var(--peach-text);fill:none}
+.icon-box.lemon-bg{background:var(--lemon)}
+.icon-box.lemon-bg svg{stroke:var(--lemon-text);fill:none}
+.icon-box.coral-bg{background:var(--coral)}
+.icon-box.coral-bg svg{stroke:var(--coral-text);fill:none}
+
+/* ===== Feature Lists ===== */
+.feature-item{display:flex;align-items:flex-start;gap:14px;padding:10px 0}
+.feature-item .feature-dot{width:6px;height:6px;border-radius:50%;background:var(--lavender-deep);margin-top:7px;flex-shrink:0}
+.feature-item p{font-size:16px;color:var(--text-secondary);line-height:1.5;font-weight:400}
+
+/* ===== Architecture Diagram ===== */
+.arch-layer{display:flex;align-items:stretch;gap:0;position:relative}
+.arch-node{flex:1;padding:20px 16px;text-align:center;position:relative}
+.arch-node:not(:last-child)::after{content:'';position:absolute;right:-1px;top:20%;height:60%;width:2px;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.06),transparent)}
+.arch-icon{width:44px;height:44px;border-radius:50%;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
+.arch-icon svg{width:22px;height:22px}
+.arch-title{font-size:14px;font-weight:600;margin-bottom:4px}
+.arch-desc{font-size:14px;color:var(--text-muted);line-height:1.5}
+
+/* ===== Stat Blocks ===== */
+.stat-block{text-align:center;padding:16px}
+.stat-number{font-family:'DM Serif Display',serif;font-size:36px;font-weight:700;line-height:1}
+.stat-unit{font-size:14px;color:var(--text-muted);margin-top:4px}
+
+/* ===== Tag ===== */
+.tag{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:20px;font-size:16px;font-weight:500;letter-spacing:.5px}
+.tag.rose{background:var(--rose);color:var(--rose-text)}
+.tag.mint{background:var(--mint);color:var(--mint-text)}
+.tag.blue{background:var(--blue);color:var(--blue-text)}
+.tag.lavender{background:var(--lavender);color:var(--lavender-text)}
+.tag.peach{background:var(--peach);color:var(--peach-text)}
+
+/* ===== Badge ===== */
+.badge-future{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:12px;font-size:11px;font-weight:600;background:var(--coral);color:var(--coral-text);letter-spacing:.5px;margin-left:10px;vertical-align:middle}
+
+/* ===== Divider ===== */
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(0,0,0,.06),transparent)}
+
+/* ===== Progress Bar ===== */
+.progress-bar{height:6px;border-radius:3px;background:rgba(0,0,0,.04);overflow:hidden;flex:1}
+.progress-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(.25,.46,.45,.94)}
+
+/* ===== Animations ===== */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
+.anim-fade-up{animation:fadeUp .6s ease both}
+.anim-fade-in{animation:fadeIn .6s ease both}
+.anim-scale-in{animation:scaleIn .5s ease both}
+.anim-slide-right{animation:slideRight .5s ease both}
+.anim-float{animation:float 3s ease-in-out infinite}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.4s}.d5{animation-delay:.5s}.d6{animation-delay:.6s}.d7{animation-delay:.7s}.d8{animation-delay:.8s}
+
+/* ===== Scrollbar ===== */
+.slide::-webkit-scrollbar{width:3px}
+.slide::-webkit-scrollbar-thumb{background:rgba(0,0,0,.08);border-radius:2px}
+</style>
+</head>
+<body>
+
+<div class="slides-container" id="slidesContainer">
+
+<!-- ==================== SLIDE 01: Cover ==================== -->
+<div class="slide active" data-slide="0" data-notes="开场白：大家好，我们是'我们又行了'团队。今天为大家带来全场景智能家居监测系统。最大亮点：一部旧手机就能变身智能管家，零硬件成本部署。">
+  <div style="display:flex;flex-direction:column;height:100%;padding:0 64px;justify-content:center;position:relative">
+    <div style="position:absolute;top:40px;left:64px;display:flex;align-items:center;gap:8px">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#9A9A9A" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      <span style="font-size:14px;color:var(--text-muted);letter-spacing:2px;font-weight:500">SMART HOME MONITORING</span>
+    </div>
+    <div style="position:absolute;top:40px;right:64px">
+      <span class="label">2026.7.5</span>
+    </div>
+
+    <div style="margin-bottom:48px" class="anim-fade-up">
+      <div class="label" style="margin-bottom:20px;letter-spacing:4px">ROADSHOW PRESENTATION</div>
+      <h1 class="title-hero" style="font-size:60px;max-width:700px">
+        全场景<br>智能家居监测系统
+      </h1>
+    </div>
+
+    <div style="display:flex;gap:48px;margin-bottom:56px" class="anim-fade-up d2">
+      <div>
+        <p style="font-size:16px;color:var(--text-muted);margin-bottom:6px">技术架构</p>
+        <p style="font-size:16px;font-weight:500">旧手机 + AI算法 + 云平台</p>
+      </div>
+      <div style="width:1px;background:rgba(0,0,0,.08)"></div>
+      <div>
+        <p style="font-size:16px;color:var(--text-muted);margin-bottom:6px">项目版本</p>
+        <p style="font-size:16px;font-weight:500">V1.0</p>
+      </div>
+      <div style="width:1px;background:rgba(0,0,0,.08)"></div>
+      <div>
+        <p style="font-size:16px;color:var(--text-muted);margin-bottom:6px">应用场景</p>
+        <p style="font-size:16px;font-weight:500">家庭安全 / 健康关怀 / 情感分析</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:10px" class="anim-fade-up d3">
+      <span class="tag mint">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        智能家居
+      </span>
+      <span class="tag lavender">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><circle cx="15" cy="10" r="1.5"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/></svg>
+        AI监测
+      </span>
+      <span class="tag rose">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        创新设计
+      </span>
+      <span class="tag peach">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        📱 零成本部署
+      </span>
+    </div>
+
+    <div style="position:absolute;bottom:100px;right:64px" class="anim-fade-in d5">
+      <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="55" stroke="rgba(0,0,0,.03)" stroke-width="1"/>
+        <circle cx="60" cy="60" r="40" stroke="rgba(0,0,0,.03)" stroke-width="1"/>
+        <circle cx="60" cy="60" r="25" stroke="rgba(0,0,0,.03)" stroke-width="1"/>
+        <circle cx="60" cy="60" r="4" fill="var(--lavender-deep)"/>
+        <circle cx="60" cy="30" r="3" fill="var(--mint-deep)" opacity=".6" class="anim-float"/>
+        <circle cx="85" cy="50" r="3" fill="var(--rose-deep)" opacity=".6" class="anim-float d2"/>
+        <circle cx="75" cy="80" r="3" fill="var(--blue-deep)" opacity=".6" class="anim-float d4"/>
+      </svg>
+    </div>
+
+    <div style="position:absolute;bottom:40px;left:64px;right:64px;display:flex;justify-content:space-between;align-items:center">
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span style="font-size:14px;color:var(--text-muted)">报告团队：我们又行了</span>
+      </div>
+      <div style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--text-muted)">旧手机变身智能管家 · 零成本守护家人</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 02: Project Positioning ==================== -->
+<div class="slide" data-slide="1" data-notes="项目定位：我们要做的不是简单的智能家居控制，而是全场景的智能守护系统。核心差异点在于情感计算和心理健康关怀。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">01</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">PROJECT POSITIONING</span>
+      <h2 class="title-section anim-fade-up d1" style="max-width:600px">项目整体定位<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">智能家居监测的未来形态</span></h2>
+    </div>
+
+    <div class="grid-3 anim-fade-up d2">
+      <div class="card card-tinted lavender" style="grid-column:span 1">
+        <div class="icon-box lg lavender-bg" style="margin-bottom:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
+        </div>
+        <div class="label" style="margin-bottom:8px;color:var(--lavender-text)">CORE</div>
+        <p class="title-card" style="margin-bottom:10px">核心定位</p>
+        <p class="subtitle" style="font-size:16px">基于旧手机传感器的全场景智能家居监测系统，一部闲置手机即可部署，深度融合AI视觉与情感计算技术，实现从环境监测到心理健康关怀的全方位零成本智能守护。</p>
+      </div>
+
+      <div class="card card-tinted rose" style="grid-column:span 1">
+        <div class="icon-box lg rose-bg" style="margin-bottom:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <div class="label" style="margin-bottom:8px;color:var(--rose-text)">VISION</div>
+        <p class="title-card" style="margin-bottom:10px">设计理念</p>
+        <div class="feature-item" style="padding:4px 0"><div class="feature-dot" style="background:var(--rose-deep)"></div><p style="font-size:12.5px">技术隐形化：让智能设备融入家居环境</p></div>
+        <div class="feature-item" style="padding:4px 0"><div class="feature-dot" style="background:var(--rose-deep)"></div><p style="font-size:12.5px">关怀无感知：在无形中守护家人健康</p></div>
+        <div class="feature-item" style="padding:4px 0"><div class="feature-dot" style="background:var(--rose-deep)"></div><p style="font-size:12.5px">数据有价值：将监测数据转化为情感连接</p></div>
+      </div>
+
+      <div class="card card-tinted mint" style="grid-column:span 1">
+        <div class="icon-box lg mint-bg" style="margin-bottom:16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="label" style="margin-bottom:8px;color:var(--mint-text)">INNOVATION</div>
+        <p class="title-card" style="margin-bottom:10px">创新特色</p>
+        <div class="feature-item" style="padding:4px 0"><div class="feature-dot" style="background:var(--mint-deep)"></div><p style="font-size:12.5px">零硬件成本：旧手机即传感器</p></div>
+        <div class="feature-item" style="padding:4px 0"><div class="feature-dot" style="background:var(--mint-deep)"></div><p style="font-size:12.5px">心理关怀：情绪识别+心理健康监测</p></div>
+        <div class="feature-item" style="padding:4px 0"><div class="feature-dot" style="background:var(--mint-deep)"></div><p style="font-size:12.5px">多模态感知：摄像头+麦克风+传感器</p></div>
+      </div>
+    </div>
+
+    <div class="card anim-fade-up d3" style="display:flex;align-items:center;gap:40px;padding:24px 32px">
+      <div style="display:flex;gap:32px;flex:1">
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--lavender-text)">7+</div>
+          <div class="stat-unit">情绪识别类型</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--mint-text)">4</div>
+          <div class="stat-unit">感知维度</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--blue-text)">360°</div>
+          <div class="stat-unit">全场景覆盖</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--rose-text)">24H</div>
+          <div class="stat-unit">不间断守护</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--peach-text)">0元</div>
+          <div class="stat-unit">硬件成本</div>
+        </div>
+      </div>
+      <div style="width:1px;height:60px;background:rgba(0,0,0,.06)"></div>
+      <div style="flex:1">
+        <p class="subtitle" style="font-size:16px">从环境监测到情感连接，<br>打造真正的全场景智能生活守护。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 03: Why Old Phone ==================== -->
+<div class="slide" data-slide="2" data-notes="核心卖点：全球超50亿部闲置手机，我们让它们变成家庭守护者。对比传统方案：零硬件成本、3分钟部署、人人都有旧手机。手机自带摄像头、麦克风、光线传感器、加速度计，足以实现全场景监测。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">02</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">WHY OLD PHONE</span>
+      <h2 class="title-section anim-fade-up d1">为什么选择旧手机？<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">零成本部署 · 人人可用 · 即刻守护</span></h2>
+    </div>
+
+    <div class="grid-2 anim-fade-up d2" style="gap:20px">
+      <!-- Left: Pain Point Comparison -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card card-tinted coral" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <div class="icon-box sm coral-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <p class="title-card" style="font-size:15px;color:var(--coral-text)">传统智能家居方案</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">💰 需购买专用传感器套件 ¥500+</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">🔧 安装调试复杂，需专业知识</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">🔌 设备兼容性差，协议不统一</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">📦 硬件过时快，升级成本高</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-tinted mint" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <div class="icon-box sm mint-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <p class="title-card" style="font-size:15px;color:var(--mint-text)">我们的方案</p>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">🆓 零元硬件成本，旧手机即可</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">⚡ 3分钟安装部署，扫码即用</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">📱 人人都有旧手机，覆盖面极广</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+              <span style="font-size:14px;color:var(--text-secondary)">🔄 软件升级即能力升级，永不过时</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Phone Sensor Matrix -->
+      <div class="card" style="padding:24px">
+        <p class="title-card" style="margin-bottom:16px">📱 手机传感器 → 智能守护能力</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--blue);border-radius:10px">
+            <div class="icon-box sm blue-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <div style="flex:1">
+              <p style="font-size:14px;font-weight:600;color:var(--blue-text)">摄像头</p>
+              <p style="font-size:12px;color:var(--text-secondary)">人脸识别 · 姿态检测 · 环境感知 · 跌倒检测</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--lavender);border-radius:10px">
+            <div class="icon-box sm lavender-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/></svg>
+            </div>
+            <div style="flex:1">
+              <p style="font-size:14px;font-weight:600;color:var(--lavender-text)">麦克风</p>
+              <p style="font-size:12px;color:var(--text-secondary)">语音交互 · 环境声分析 · 情绪语音识别</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--peach);border-radius:10px">
+            <div class="icon-box sm peach-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
+            </div>
+            <div style="flex:1">
+              <p style="font-size:14px;font-weight:600;color:var(--peach-text)">光线传感器</p>
+              <p style="font-size:12px;color:var(--text-secondary)">环境亮度监测 · 昼夜判断 · 光照提醒</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--mint);border-radius:10px">
+            <div class="icon-box sm mint-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div style="flex:1">
+              <p style="font-size:14px;font-weight:600;color:var(--mint-text)">加速度 / 陀螺仪</p>
+              <p style="font-size:12px;color:var(--text-secondary)">跌倒检测 · 震动告警 · 运动分析</p>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--rose);border-radius:10px">
+            <div class="icon-box sm rose-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div style="flex:1">
+              <p style="font-size:14px;font-weight:600;color:var(--rose-text)">GPS 定位</p>
+              <p style="font-size:12px;color:var(--text-secondary)">位置追踪 · 电子围栏 · 外出提醒</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Banner -->
+    <div class="card anim-fade-up d3" style="display:flex;align-items:center;gap:24px;padding:18px 28px;background:linear-gradient(135deg,var(--mint) 0%,var(--blue) 100%);border:none">
+      <div style="font-size:28px">📱</div>
+      <div style="flex:1">
+        <p style="font-size:16px;font-weight:600;color:var(--text-primary)">全球闲置手机超 50 亿部 —— 让它们成为家庭守护者</p>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:2px">一部旧手机 = 摄像头 + 麦克风 + 光线传感器 + 加速度计 + GPS，开箱即用</p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <span class="tag mint" style="font-size:11px">环保</span>
+        <span class="tag blue" style="font-size:11px">零成本</span>
+        <span class="tag lavender" style="font-size:11px">普惠</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 04: Architecture ==================== -->
+<div class="slide" data-slide="3" data-notes="技术架构分三层：感知层用旧手机替代传统传感器，控制层是核心AI处理，应用层面向用户。云平台贯穿始终，提供数据存储和AI训练能力。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">03</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">SYSTEM ARCHITECTURE</span>
+      <h2 class="title-section anim-fade-up d1">项目基础框架<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">三层架构 · 全场景覆盖</span></h2>
+    </div>
+
+    <div class="grid-3 anim-fade-up d2" style="gap:20px">
+      <!-- Perception Layer -->
+      <div class="card card-tinted peach" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box peach-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          </div>
+          <div>
+            <div class="label" style="color:var(--peach-text)">PERCEPTION</div>
+            <p class="title-card" style="font-size:16px">感知层 · 旧手机即传感器</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--peach-text)" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">📷 摄像头（人脸/姿态/环境）</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--peach-text)" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">🎤 麦克风（语音/环境声/情绪）</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--peach-text)" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">💡 光线传感器（环境亮度）</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--peach-text)" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">📡 加速度/陀螺仪（跌倒检测）</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--peach-text)" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">🌡️ 环境温度（部分机型）</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Control Layer -->
+      <div class="card card-tinted blue" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box blue-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>
+          </div>
+          <div>
+            <div class="label" style="color:var(--blue-text)">CONTROL</div>
+            <p class="title-card" style="font-size:16px">控制层 · 核心处理单元</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-text)" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">手机端 AI 推理</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-text)" stroke-width="1.5"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2v2a4 4 0 0 0 8 0v-2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">AI算法引擎</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-text)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">数据融合模块</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-text)" stroke-width="1.5"><path d="M12 2v4"/><path d="M12 18v4"/><path d="M4.93 4.93l2.83 2.83"/><path d="M16.24 16.24l2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="M4.93 19.07l2.83-2.83"/><path d="M16.24 7.76l2.83-2.83"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">智能决策系统</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--blue-text)" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">云端通信模块</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application Layer -->
+      <div class="card card-tinted mint" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box mint-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="label" style="color:var(--mint-text)">APPLICATION</div>
+            <p class="title-card" style="font-size:16px">应用层 · 用户交互界面</p>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint-text)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">统一数据仪表盘</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint-text)" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">移动端APP</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint-text)" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">Web管理后台</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint-text)" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">AI语音助手</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:7px 12px;background:rgba(255,255,255,.5);border-radius:8px">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--mint-text)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            <span style="font-size:14px;color:var(--text-secondary)">智能设备控制</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cloud Platform -->
+    <div class="card card-tinted lavender anim-fade-up d3" style="display:flex;align-items:center;gap:24px;padding:20px 28px">
+      <div class="icon-box lg lavender-bg" style="flex-shrink:0">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      </div>
+      <div style="flex:1">
+        <p class="title-card" style="margin-bottom:4px">云平台 · 数据存储与分析</p>
+        <p class="subtitle" style="font-size:14px">数据存储 | AI训练模型 | 远程访问 | 数据加密 | 多端同步</p>
+      </div>
+      <div style="display:flex;gap:8px">
+        <span class="tag lavender" style="font-size:10px">安全加密</span>
+        <span class="tag mint" style="font-size:10px">多端同步</span>
+        <span class="tag blue" style="font-size:10px">AI训练</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 05: Core Functions ==================== -->
+<div class="slide" data-slide="4" data-notes="核心功能覆盖四大维度：环境监测、视觉识别、健康监测、安全防护。强调AI赋能和多维度感知的协同能力。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">04</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">CORE FUNCTIONS</span>
+      <h2 class="title-section anim-fade-up d1">核心监测功能<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">AI赋能 · 多维度智能感知</span></h2>
+    </div>
+
+    <div class="grid-2 anim-fade-up d2" style="gap:16px">
+      <!-- Environment -->
+      <div class="card" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box peach-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+          </div>
+          <div>
+            <p class="title-card">环境监测</p>
+            <p class="subtitle" style="font-size:16px;margin:0">Temperature · Light · Sound</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--peach);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--peach-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">温度实时监测</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--peach);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--peach-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">湿度自动调节</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--peach);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--peach-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">环境噪音监测</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--peach);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--peach-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">光照强度感应</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--peach);border-radius:6px;grid-column:span 2">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--peach-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">光照变化检测</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vision -->
+      <div class="card" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box blue-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <p class="title-card">视觉识别</p>
+            <p class="subtitle" style="font-size:16px;margin:0">Vision AI · Behavior Analysis</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--blue);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">人体自动跟踪</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--blue);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">姿态检测分析</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--blue);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">面部情绪识别</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--blue);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">陌生人识别</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--blue);border-radius:6px;grid-column:span 2">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">异常行为告警</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Health -->
+      <div class="card" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box mint-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div>
+            <p class="title-card">健康监测</p>
+            <p class="subtitle" style="font-size:16px;margin:0">Health Monitor · Sleep Analysis</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--mint);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--mint-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">体温异常预警</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--mint);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--mint-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">发烧初筛检测</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--mint);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--mint-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">睡眠质量分析</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--mint);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--mint-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">心率呼吸监测</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--mint);border-radius:6px;grid-column:span 2">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--mint-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">健康趋势报告</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Security -->
+      <div class="card" style="padding:24px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div class="icon-box rose-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <p class="title-card">安全防护</p>
+            <p class="subtitle" style="font-size:16px;margin:0">Security · Emergency Response</p>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--rose);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--rose-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">门窗状态监测</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--rose);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--rose-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">水浸泄漏检测</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--rose);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--rose-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">烟雾燃气报警</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--rose);border-radius:6px">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--rose-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">老人跌倒识别</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:6px 10px;background:var(--rose);border-radius:6px;grid-column:span 2">
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--rose-deep)"></div>
+            <span style="font-size:14px;color:var(--text-secondary)">紧急求助按钮</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 06: AI Assistant ==================== -->
+<div class="slide" data-slide="5" data-notes="AI助手是系统的大脑。重点讲人体跟踪和姿态检测的技术实现，以及发烧初筛和情绪识别的创新应用。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">05</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">AI CAPABILITIES</span>
+      <h2 class="title-section anim-fade-up d1">AI智能助手能力<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">智能控制 · 自主学习 · 情感交互</span></h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:16px" class="anim-fade-up d2">
+      <!-- Row 1: 3 cards -->
+      <div class="grid-3">
+        <div class="card card-tinted lavender" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="icon-box sm lavender-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/></svg>
+            </div>
+            <p class="title-card" style="font-size:14px">硬件控制</p>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:10px">语音直接控制所有智能设备</p>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>开关灯光 & 调节亮度</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>控制空调 & 窗帘</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>场景模式一键切换</span>
+          </div>
+        </div>
+
+        <div class="card card-tinted blue" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="icon-box sm blue-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <p class="title-card" style="font-size:14px">人体跟踪</p>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:10px">智能跟随与定位</p>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--blue-deep);flex-shrink:0"></span>摄像头自动跟踪人体移动</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--blue-deep);flex-shrink:0"></span>家庭成员身份识别</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--blue-deep);flex-shrink:0"></span>异常停留时间告警</span>
+          </div>
+        </div>
+
+        <div class="card card-tinted mint" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+            <div class="icon-box sm mint-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2v2a4 4 0 0 0 8 0v-2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/></svg>
+            </div>
+            <p class="title-card" style="font-size:14px">姿态检测</p>
+          </div>
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:10px">AI骨骼关键点识别</p>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--mint-deep);flex-shrink:0"></span>坐姿/站姿/睡姿识别</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--mint-deep);flex-shrink:0"></span>跌倒检测告警</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--mint-deep);flex-shrink:0"></span>长时间久坐提醒</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: 2 wider cards -->
+      <div class="grid-2">
+        <div class="card card-tinted peach" style="padding:22px;display:flex;gap:20px;align-items:flex-start">
+          <div class="icon-box lg peach-bg" style="flex-shrink:0">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/><path d="M10 10v1a2 2 0 0 0 4 0v-1"/></svg>
+          </div>
+          <div>
+            <p class="title-card" style="margin-bottom:4px">发烧初筛</p>
+            <p style="font-size:16px;color:var(--peach-text);margin-bottom:8px">红外热成像 + AI算法</p>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--peach-deep);flex-shrink:0"></span>非接触式体温检测</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--peach-deep);flex-shrink:0"></span>异常体温自动告警</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--peach-deep);flex-shrink:0"></span>健康数据持续追踪</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--peach-deep);flex-shrink:0"></span>就医建议智能推送</span>
+          </div>
+        </div>
+
+        <div class="card card-tinted rose" style="padding:22px;display:flex;gap:20px;align-items:flex-start">
+          <div class="icon-box lg rose-bg" style="flex-shrink:0">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div>
+            <p class="title-card" style="margin-bottom:4px">情绪识别</p>
+            <p style="font-size:16px;color:var(--rose-text);margin-bottom:8px">面部表情 + 语音分析</p>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>7种基础情绪识别</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>情绪变化趋势记录</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>心理健康指数评估</span>
+            <span style="font-size:14px;color:var(--text-secondary);padding:4px 0;display:flex;align-items:center;gap:6px"><span style="width:4px;height:4px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>情绪调节建议</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 07: Innovation 1 ==================== -->
+<div class="slide" data-slide="6" data-notes="创新亮点一：心理健康与情感分析。这是我们区别于市面所有产品的核心竞争力。强调无感知监测和早期预警的价值。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">06</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">INNOVATION</span>
+      <h2 class="title-section anim-fade-up d1">创新亮点（一）<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">心理健康与情感分析系统</span></h2>
+    </div>
+
+    <div class="grid-2 anim-fade-up d2" style="gap:20px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card card-tinted rose" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <div class="icon-box sm rose-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <p class="title-card" style="font-size:14px">情感识别</p>
+          </div>
+          <p class="subtitle" style="font-size:14px">通过面部表情分析 + 语音语调识别，实时识别用户的情绪状态，包括开心、悲伤、愤怒、焦虑、疲劳等7种基础情绪。</p>
+        </div>
+
+        <div class="card card-tinted lavender" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <div class="icon-box sm lavender-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <p class="title-card" style="font-size:14px">心理健康评估</p>
+          </div>
+          <p style="font-size:16px;color:var(--lavender-text);margin-bottom:8px">基于长期情绪数据分析，生成心理健康报告：</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>情绪波动曲线</span>
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>压力指数评估</span>
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>睡眠质量分析</span>
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>心理健康建议</span>
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px;grid-column:span 2"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>异常预警机制</span>
+          </div>
+        </div>
+
+        <div class="card card-tinted mint" style="padding:22px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <div class="icon-box sm mint-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <p class="title-card" style="font-size:14px">情感陪伴</p>
+          </div>
+          <p style="font-size:16px;color:var(--mint-text);margin-bottom:8px">AI助手根据用户情绪状态提供个性化关怀：</p>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--mint-deep);flex-shrink:0"></span>情绪低落时播放舒缓音乐</span>
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--mint-deep);flex-shrink:0"></span>压力大时引导冥想放松</span>
+            <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--mint-deep);flex-shrink:0"></span>疲劳时提醒休息</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:22px;background:linear-gradient(135deg,var(--rose) 0%,var(--lavender) 100%);border:none">
+          <p class="title-card" style="margin-bottom:16px;color:var(--text-primary)">为什么需要情感监测？</p>
+          <div class="grid-2" style="gap:16px">
+            <div>
+              <div class="label" style="margin-bottom:10px;color:var(--rose-text);font-size:10px">社会背景</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>现代社会压力指数持续上升</span>
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>心理健康问题日益突出</span>
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>家庭情感交流减少</span>
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--rose-deep);flex-shrink:0"></span>独居人群比例增加</span>
+              </div>
+            </div>
+            <div>
+              <div class="label" style="margin-bottom:10px;color:var(--lavender-text);font-size:10px">解决方案</div>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>无感知监测：无需穿戴设备</span>
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>早期预警：发现情绪异常及时提醒</span>
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>数据隐私：本地处理，保护隐私</span>
+                <span style="font-size:16px;color:var(--text-secondary);display:flex;align-items:center;gap:5px"><span style="width:3px;height:3px;border-radius:50%;background:var(--lavender-deep);flex-shrink:0"></span>持续关怀：24小时智能陪伴</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:24px;display:flex;align-items:center;gap:20px">
+          <div style="display:flex;flex-direction:column;gap:12px;flex:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="icon-box sm mint-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              </div>
+              <div>
+                <p style="font-size:14px;font-weight:600">情绪波动曲线</p>
+                <p style="font-size:10px;color:var(--text-muted)">每日情绪状态追踪</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:end;gap:3px;height:40px">
+              <div style="flex:1;background:var(--rose);border-radius:2px;height:60%"></div>
+              <div style="flex:1;background:var(--lavender);border-radius:2px;height:80%"></div>
+              <div style="flex:1;background:var(--mint);border-radius:2px;height:45%"></div>
+              <div style="flex:1;background:var(--blue);border-radius:2px;height:90%"></div>
+              <div style="flex:1;background:var(--peach);border-radius:2px;height:70%"></div>
+              <div style="flex:1;background:var(--lavender);border-radius:2px;height:55%"></div>
+              <div style="flex:1;background:var(--mint);border-radius:2px;height:85%"></div>
+              <div style="flex:1;background:var(--rose);border-radius:2px;height:65%"></div>
+              <div style="flex:1;background:var(--blue);border-radius:2px;height:75%"></div>
+              <div style="flex:1;background:var(--peach);border-radius:2px;height:50%"></div>
+              <div style="flex:1;background:var(--mint);border-radius:2px;height:95%"></div>
+              <div style="flex:1;background:var(--lavender);border-radius:2px;height:60%"></div>
+            </div>
+          </div>
+          <div style="width:1px;height:80px;background:rgba(0,0,0,.06)"></div>
+          <div style="display:flex;flex-direction:column;gap:12px;flex:1">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="icon-box sm rose-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div>
+                <p style="font-size:14px;font-weight:600">心理健康指数</p>
+                <p style="font-size:10px;color:var(--text-muted)">综合评估得分</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="font-family:'DM Serif Display',serif;font-size:32px;font-weight:700;color:var(--mint-text)">87</div>
+              <div>
+                <span class="tag mint" style="font-size:10px;padding:3px 8px">良好</span>
+                <p style="font-size:10px;color:var(--text-muted);margin-top:4px">较上周提升 5%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 08: Innovation 2 ==================== -->
+<div class="slide" data-slide="7" data-notes="创新亮点二：脑波监测属于未来规划阶段，目前正在进行技术调研。情感记忆留存是我们的独创概念，重点阐述应用场景。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">07</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">INNOVATION</span>
+      <h2 class="title-section anim-fade-up d1">创新亮点（二）<span class="badge-future">🔮 未来规划</span><br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">脑波监测与情感记忆留存系统</span></h2>
+    </div>
+
+    <div class="grid-2 anim-fade-up d2" style="gap:20px">
+      <div class="card card-tinted blue" style="padding:28px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+          <div class="icon-box lg blue-bg">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>
+          </div>
+          <div>
+            <p class="title-card" style="font-size:16px">脑波监测</p>
+            <p class="subtitle" style="font-size:16px;margin:0">可穿戴设备（手环/发卡）</p>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon-box sm blue-bg" style="margin-top:2px">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/></svg>
+            </div>
+            <div>
+              <p style="font-size:16px;font-weight:600;margin-bottom:2px">专注度监测</p>
+              <p style="font-size:16px;color:var(--text-secondary)">alpha波 / beta波 / theta波分析</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon-box sm lavender-bg" style="margin-top:2px">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div>
+              <p style="font-size:16px;font-weight:600;margin-bottom:2px">情绪状态</p>
+              <p style="font-size:16px;color:var(--text-secondary)">放松 / 紧张 / 兴奋 / 平静</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon-box sm mint-bg" style="margin-top:2px">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+              <p style="font-size:16px;font-weight:600;margin-bottom:2px">灵感捕捉</p>
+              <p style="font-size:16px;color:var(--text-secondary)">高创造力脑波识别</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div class="icon-box sm peach-bg" style="margin-top:2px">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <div>
+              <p style="font-size:16px;font-weight:600;margin-bottom:2px">疲劳检测</p>
+              <p style="font-size:16px;color:var(--text-secondary)">脑力消耗评估</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card card-tinted lavender" style="padding:28px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+            <div class="icon-box lg lavender-bg">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            </div>
+            <div>
+              <p class="title-card" style="font-size:16px">情感记忆留存</p>
+              <p class="subtitle" style="font-size:16px;margin:0">灵感乍现时，系统自动记录</p>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div style="width:28px;height:28px;border-radius:8px;background:var(--lavender-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">1</div>
+              <div>
+                <p style="font-size:14px;font-weight:600;margin-bottom:2px">监测并记录当前脑波状态</p>
+                <p style="font-size:16px;color:var(--text-secondary)">保存情感记忆与工作场景</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div style="width:28px;height:28px;border-radius:8px;background:var(--lavender-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">2</div>
+              <div>
+                <p style="font-size:14px;font-weight:600;margin-bottom:2px">一键恢复到最佳工作状态</p>
+                <p style="font-size:16px;color:var(--text-secondary)">用户处理紧急事务后快速回归</p>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;align-items:flex-start;padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div style="width:28px;height:28px;border-radius:8px;background:var(--lavender-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">3</div>
+              <div>
+                <p style="font-size:14px;font-weight:600;margin-bottom:2px">情感脑波帮助沟通</p>
+                <p style="font-size:16px;color:var(--text-secondary)">紧急状态下失去表达能力后的情感辅助</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:20px;display:flex;align-items:center;gap:16px;background:linear-gradient(135deg,var(--blue) 0%,var(--lavender) 100%);border:none">
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag blue" style="font-size:10px">alpha波</span>
+            <span class="tag lavender" style="font-size:10px">beta波</span>
+            <span class="tag mint" style="font-size:10px">theta波</span>
+            <span class="tag rose" style="font-size:10px">gamma波</span>
+          </div>
+          <div style="flex:1;height:30px;display:flex;align-items:end;gap:2px">
+            <div style="flex:1;height:60%;background:var(--blue-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:80%;background:var(--lavender-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:40%;background:var(--mint-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:90%;background:var(--rose-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:55%;background:var(--blue-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:70%;background:var(--lavender-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:45%;background:var(--peach-deep);border-radius:2px;opacity:.6"></div>
+            <div style="flex:1;height:85%;background:var(--mint-deep);border-radius:2px;opacity:.6"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 09: Technical Roadmap ==================== -->
+<div class="slide" data-slide="8" data-notes="技术路线图展示四个阶段。硬件原型已完成，AI算法正在开发中，云平台和产品化是后续重点。强调我们的执行力和明确规划。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">08</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">TECHNICAL ROADMAP</span>
+      <h2 class="title-section anim-fade-up d1">技术实现路径<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">从原型到量产的清晰路线</span></h2>
+    </div>
+
+    <div class="anim-fade-up d2" style="display:flex;flex-direction:column;gap:0;position:relative;padding-left:20px">
+      <div style="position:absolute;left:20px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--lavender-deep),var(--blue-deep),var(--mint-deep),var(--rose-deep))"></div>
+
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--lavender);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;left:-20px;margin-left:-20px;z-index:2;border:3px solid var(--bg)">
+          <span style="font-size:14px;font-weight:700;color:var(--lavender-text)">01</span>
+        </div>
+        <div class="card" style="flex:1;margin-left:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm lavender-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              </div>
+              <p class="title-card">手机端感知APP开发</p>
+            </div>
+            <span class="tag lavender" style="font-size:10px">已完成</span>
+          </div>
+          <p class="subtitle" style="font-size:14px;margin-bottom:10px">开发Android端感知应用，调用手机摄像头、麦克风、光线传感器等API，实现实时环境数据采集。</p>
+          <div style="display:flex;gap:6px">
+            <span style="font-size:10px;padding:3px 8px;background:var(--lavender);border-radius:4px;color:var(--lavender-text)">Android APP</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--lavender);border-radius:4px;color:var(--lavender-text)">传感器API</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--lavender);border-radius:4px;color:var(--lavender-text)">实时采集</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;left:-20px;margin-left:-20px;z-index:2;border:3px solid var(--bg)">
+          <span style="font-size:14px;font-weight:700;color:var(--blue-text)">02</span>
+        </div>
+        <div class="card" style="flex:1;margin-left:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm blue-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2v2a4 4 0 0 0 8 0v-2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/></svg>
+              </div>
+              <p class="title-card">AI算法开发</p>
+            </div>
+            <span class="tag blue" style="font-size:10px">进行中</span>
+          </div>
+          <p class="subtitle" style="font-size:14px;margin-bottom:10px">开发轻量化AI模型，包括人脸识别、姿态检测、情绪识别、脑波分析等核心算法。</p>
+          <div style="display:flex;gap:6px">
+            <span style="font-size:10px;padding:3px 8px;background:var(--blue);border-radius:4px;color:var(--blue-text)">TensorFlow Lite</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--blue);border-radius:4px;color:var(--blue-text)">OpenCV</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--blue);border-radius:4px;color:var(--blue-text)">边缘计算</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--mint);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;left:-20px;margin-left:-20px;z-index:2;border:3px solid var(--bg)">
+          <span style="font-size:14px;font-weight:700;color:var(--mint-text)">03</span>
+        </div>
+        <div class="card" style="flex:1;margin-left:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm mint-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+              </div>
+              <p class="title-card">云平台对接</p>
+            </div>
+            <span class="tag mint" style="font-size:10px">规划中</span>
+          </div>
+          <p class="subtitle" style="font-size:14px;margin-bottom:10px">搭建IoT云平台，实现数据上传、远程控制、多端同步、AI模型训练等功能。</p>
+          <div style="display:flex;gap:6px">
+            <span style="font-size:10px;padding:3px 8px;background:var(--mint);border-radius:4px;color:var(--mint-text)">MQTT协议</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--mint);border-radius:4px;color:var(--mint-text)">WebSocket</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--mint);border-radius:4px;color:var(--mint-text)">数据加密</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:24px;align-items:flex-start;padding:16px 0;position:relative">
+        <div style="width:40px;height:40px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;left:-20px;margin-left:-20px;z-index:2;border:3px solid var(--bg)">
+          <span style="font-size:14px;font-weight:700;color:var(--rose-text)">04</span>
+        </div>
+        <div class="card" style="flex:1;margin-left:8px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm rose-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <p class="title-card">产品化与量产</p>
+            </div>
+            <span class="tag rose" style="font-size:10px">目标</span>
+          </div>
+          <p class="subtitle" style="font-size:14px;margin-bottom:10px">完成产品工业设计、PCB优化、外壳开模，实现小批量试产与市场推广。</p>
+          <div style="display:flex;gap:6px">
+            <span style="font-size:10px;padding:3px 8px;background:var(--rose);border-radius:4px;color:var(--rose-text)">工业设计</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--rose);border-radius:4px;color:var(--rose-text)">PCB优化</span>
+            <span style="font-size:10px;padding:3px 8px;background:var(--rose);border-radius:4px;color:var(--rose-text)">量产准备</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10: Market & Scenarios ==================== -->
+<div class="slide" data-slide="9" data-notes="市场分析要点：5200亿市场规模，15.2%增长率。与小米、华为、天猫精灵的差异化在于情感计算维度。核心用户是有老人儿童的家庭。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">09</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">MARKET & SCENARIOS</span>
+      <h2 class="title-section anim-fade-up d1">市场分析与应用场景<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">千亿级市场的差异化切入</span></h2>
+    </div>
+
+    <div class="grid-2 anim-fade-up d2" style="gap:20px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card" style="padding:24px;background:linear-gradient(135deg,var(--peach) 0%,var(--rose) 100%);border:none">
+          <p class="title-card" style="margin-bottom:16px">市场规模</p>
+          <div style="display:flex;gap:20px">
+            <div style="text-align:center;flex:1">
+              <div style="font-family:'DM Serif Display',serif;font-size:28px;font-weight:700;color:var(--peach-text)">5200</div>
+              <div style="font-size:16px;color:var(--text-secondary)">亿元 (2026)</div>
+            </div>
+            <div style="width:1px;background:rgba(0,0,0,.08)"></div>
+            <div style="text-align:center;flex:1">
+              <div style="font-family:'DM Serif Display',serif;font-size:28px;font-weight:700;color:var(--rose-text)">15.2%</div>
+              <div style="font-size:16px;color:var(--text-secondary)">年复合增长率</div>
+            </div>
+            <div style="width:1px;background:rgba(0,0,0,.08)"></div>
+            <div style="text-align:center;flex:1">
+              <div style="font-family:'DM Serif Display',serif;font-size:28px;font-weight:700;color:var(--lavender-text)">8.6</div>
+              <div style="font-size:16px;color:var(--text-secondary)">亿台 (设备量)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:22px">
+          <p class="title-card" style="margin-bottom:12px">竞争差异化</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                  <span style="font-size:16px;color:var(--text-secondary)">小米生态链</span>
+                  <span style="font-size:16px;color:var(--text-muted)">设备互联</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:45%;background:var(--peach-deep)"></div></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                  <span style="font-size:16px;color:var(--text-secondary)">华为全屋智能</span>
+                  <span style="font-size:16px;color:var(--text-muted)">网络+控制</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:55%;background:var(--blue-deep)"></div></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                  <span style="font-size:16px;color:var(--text-secondary)">天猫精灵</span>
+                  <span style="font-size:16px;color:var(--text-muted)">语音+生态</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:40%;background:var(--mint-deep)"></div></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px">
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+                  <span style="font-size:16px;color:var(--text-primary);font-weight:600">我们的方案</span>
+                  <span style="font-size:16px;color:var(--lavender-text);font-weight:500">全场景+情感</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width:90%;background:var(--lavender-deep)"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="divider" style="margin:12px 0 10px"></div>
+          <p style="font-size:13px;font-weight:600;color:var(--text-secondary);margin-bottom:8px">💰 硬件成本对比</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+            <div style="padding:6px 10px;background:var(--coral);border-radius:6px;text-align:center">
+              <p style="font-size:11px;color:var(--text-muted)">小米生态链</p>
+              <p style="font-size:14px;font-weight:600;color:var(--coral-text)">¥999+</p>
+            </div>
+            <div style="padding:6px 10px;background:var(--coral);border-radius:6px;text-align:center">
+              <p style="font-size:11px;color:var(--text-muted)">华为全屋智能</p>
+              <p style="font-size:14px;font-weight:600;color:var(--coral-text)">¥5000+</p>
+            </div>
+            <div style="padding:6px 10px;background:var(--coral);border-radius:6px;text-align:center">
+              <p style="font-size:11px;color:var(--text-muted)">天猫精灵</p>
+              <p style="font-size:14px;font-weight:600;color:var(--coral-text)">¥299+</p>
+            </div>
+            <div style="padding:6px 10px;background:var(--mint);border-radius:6px;text-align:center">
+              <p style="font-size:11px;color:var(--text-muted)">我们的方案</p>
+              <p style="font-size:14px;font-weight:600;color:var(--mint-text)">¥0 旧手机</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="card card-tinted blue" style="padding:22px">
+          <p class="title-card" style="margin-bottom:12px">核心应用场景</p>
+          <div class="grid-2" style="gap:10px">
+            <div style="padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div class="icon-box sm blue-bg" style="margin-bottom:8px">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <p style="font-size:14px;font-weight:600;margin-bottom:2px">独居老人看护</p>
+              <p style="font-size:10px;color:var(--text-muted)">跌倒检测+健康监测+紧急呼叫</p>
+            </div>
+            <div style="padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div class="icon-box sm mint-bg" style="margin-bottom:8px">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <p style="font-size:14px;font-weight:600;margin-bottom:2px">家庭情感关怀</p>
+              <p style="font-size:10px;color:var(--text-muted)">情绪识别+心理陪伴+健康报告</p>
+            </div>
+            <div style="padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div class="icon-box sm rose-bg" style="margin-bottom:8px">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <p style="font-size:14px;font-weight:600;margin-bottom:2px">儿童安全守护</p>
+              <p style="font-size:10px;color:var(--text-muted)">行为监测+安全防护+成长记录</p>
+            </div>
+            <div style="padding:12px;background:rgba(255,255,255,.5);border-radius:10px">
+              <div class="icon-box sm lavender-bg" style="margin-bottom:8px">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+              </div>
+              <p style="font-size:14px;font-weight:600;margin-bottom:2px">智能办公辅助</p>
+              <p style="font-size:10px;color:var(--text-muted)">专注监测+灵感捕捉+状态恢复</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-tinted peach" style="padding:22px">
+          <p class="title-card" style="margin-bottom:12px">目标用户画像</p>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm peach-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:14px;font-weight:500">有老人/儿童的家庭</span>
+                  <span style="font-size:16px;color:var(--peach-text)">核心用户</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm lavender-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
+              </div>
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:14px;font-weight:500">独居年轻人</span>
+                  <span style="font-size:16px;color:var(--lavender-text)">增长用户</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="icon-box sm mint-bg">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <div style="flex:1">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <span style="font-size:14px;font-weight:500">科技爱好者</span>
+                  <span style="font-size:16px;color:var(--mint-text)">种子用户</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 11: Live Demo ==================== -->
+<div class="slide" data-slide="10" data-notes="现场演示环节：依次展示仪表盘实时数据、摄像头人体跟踪、AI对话交互、语音控制。注意把握时间，每个环节约1分钟。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">10</span>
+  </div>
+  <div class="slide-body" style="justify-content:center">
+    <div style="text-align:center;margin-bottom:32px">
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px;letter-spacing:4px">LIVE DEMO</span>
+      <h2 class="title-section anim-fade-up d1" style="font-size:42px">🎬 演示环节<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">眼见为实 · 现场体验智能守护</span></h2>
+    </div>
+
+    <div class="grid-2 anim-fade-up d2" style="gap:20px;max-width:900px;margin:0 auto">
+      <div class="card card-tinted mint" style="padding:28px;text-align:center">
+        <div class="icon-box lg mint-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <p class="title-card" style="margin-bottom:6px">📊 Dashboard 实时监控</p>
+        <p class="subtitle" style="font-size:14px">温湿度、空气质量、设备状态<br>一屏掌握全屋数据</p>
+      </div>
+
+      <div class="card card-tinted blue" style="padding:28px;text-align:center">
+        <div class="icon-box lg blue-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </div>
+        <p class="title-card" style="margin-bottom:6px">📹 摄像头人体跟踪</p>
+        <p class="subtitle" style="font-size:14px">AI实时识别与跟踪人体<br>姿态检测 & 自动告警</p>
+      </div>
+
+      <div class="card card-tinted lavender" style="padding:28px;text-align:center">
+        <div class="icon-box lg lavender-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <p class="title-card" style="margin-bottom:6px">🤖 AI 智能对话</p>
+        <p class="subtitle" style="font-size:14px">自然语言交互<br>设备控制 & 情感陪伴</p>
+      </div>
+
+      <div class="card card-tinted rose" style="padding:28px;text-align:center">
+        <div class="icon-box lg rose-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </div>
+        <p class="title-card" style="margin-bottom:6px">🎙️ 语音交互控制</p>
+        <p class="subtitle" style="font-size:14px">唤醒词 + 语音指令<br>声控全屋智能设备</p>
+      </div>
+    </div>
+
+    <div class="anim-fade-up d4" style="text-align:center;margin-top:28px">
+      <div style="display:inline-flex;align-items:center;gap:12px;padding:12px 28px;background:linear-gradient(135deg,var(--lavender) 0%,var(--mint) 100%);border-radius:16px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--lavender-text)" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <span style="font-size:16px;font-weight:600;color:var(--lavender-text)">即将开始现场演示 — 请注意观看</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 12: Team ==================== -->
+<div class="slide" data-slide="11" data-notes="团队介绍：四人团队，技术栈覆盖硬件、AI、前端和运营。强调团队互补性和执行力。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">11</span>
+  </div>
+  <div class="slide-body">
+    <div>
+      <span class="label anim-fade-up" style="display:block;margin-bottom:8px">OUR TEAM</span>
+      <h2 class="title-section anim-fade-up d1">团队介绍<br><span style="font-size:20px;font-weight:400;color:var(--text-secondary)">跨领域协作 · 技术互补 · 高效执行</span></h2>
+    </div>
+
+    <div class="grid-4 anim-fade-up d2" style="gap:20px">
+      <div class="card card-tinted lavender" style="padding:28px;text-align:center">
+        <div class="icon-box lg lavender-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/></svg>
+        </div>
+        <p class="title-card" style="font-size:15px;margin-bottom:6px">成员A</p>
+        <span class="tag lavender" style="font-size:11px;padding:3px 10px;margin-bottom:10px">硬件开发</span>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px">嵌入式工程<br>单片机 · 电路设计<br>传感器集成</p>
+      </div>
+
+      <div class="card card-tinted blue" style="padding:28px;text-align:center">
+        <div class="icon-box lg blue-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2v2a4 4 0 0 0 8 0v-2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/></svg>
+        </div>
+        <p class="title-card" style="font-size:15px;margin-bottom:6px">成员B</p>
+        <span class="tag blue" style="font-size:11px;padding:3px 10px;margin-bottom:10px">AI算法</span>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px">后端开发<br>模型训练 · 算法优化<br>数据处理</p>
+      </div>
+
+      <div class="card card-tinted mint" style="padding:28px;text-align:center">
+        <div class="icon-box lg mint-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <p class="title-card" style="font-size:15px;margin-bottom:6px">成员C</p>
+        <span class="tag mint" style="font-size:11px;padding:3px 10px;margin-bottom:10px">前端/设计</span>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px">产品设计<br>UI/UX · Web开发<br>交互体验</p>
+      </div>
+
+      <div class="card card-tinted peach" style="padding:28px;text-align:center">
+        <div class="icon-box lg peach-bg" style="margin:0 auto 16px">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <p class="title-card" style="font-size:15px;margin-bottom:6px">成员D</p>
+        <span class="tag peach" style="font-size:11px;padding:3px 10px;margin-bottom:10px">测试/运营</span>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px">市场运营<br>质量测试 · 用户调研<br>推广策略</p>
+      </div>
+    </div>
+
+    <div class="card anim-fade-up d3" style="display:flex;align-items:center;gap:32px;padding:22px 32px;margin-top:8px">
+      <div style="display:flex;gap:24px;flex:1">
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--lavender-text)">4</div>
+          <div class="stat-unit">核心成员</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--blue-text)">3+</div>
+          <div class="stat-unit">技术领域</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-number" style="color:var(--mint-text)">100%</div>
+          <div class="stat-unit">全栈覆盖</div>
+        </div>
+      </div>
+      <div style="width:1px;height:50px;background:rgba(0,0,0,.06)"></div>
+      <div style="flex:1">
+        <p class="subtitle" style="font-size:15px">从硬件到软件，从算法到产品，<br>团队技能完整覆盖项目全流程。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 13: Thank You ==================== -->
+<div class="slide" data-slide="12" data-notes="结束语：感谢各位评委的聆听。我们相信技术的温度在于对人的关怀，期待与大家进一步交流。Q&A环节准备回答技术实现和商业模式相关问题。">
+  <div class="slide-header">
+    <span class="logo">Smart Home</span>
+    <span class="section-num">12</span>
+  </div>
+  <div class="slide-body" style="justify-content:center;align-items:center;text-align:center;padding-bottom:120px">
+    <div class="anim-fade-up" style="display:flex;flex-direction:column;align-items:center;gap:24px;max-width:700px">
+      <div style="display:flex;gap:16px;margin-bottom:8px">
+        <div class="icon-box lg peach-bg">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="icon-box lg lavender-bg">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/></svg>
+        </div>
+        <div class="icon-box lg mint-bg">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+      </div>
+
+      <h2 class="title-hero" style="font-size:44px;text-align:center">
+        Thank You
+      </h2>
+
+      <div class="divider" style="max-width:200px"></div>
+
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <p style="font-size:20px;font-weight:600;color:var(--text-primary)">全场景智能家居监测系统</p>
+        <p class="subtitle" style="font-size:14px">旧手机变身智能管家 · 零成本守护家人</p>
+      </div>
+
+      <div style="display:flex;gap:10px;margin-top:8px">
+        <span class="tag rose">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          智能家居
+        </span>
+        <span class="tag blue">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 9h6v6H9z"/></svg>
+          AI监测
+        </span>
+        <span class="tag mint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          创新设计
+        </span>
+        <span class="tag lavender">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          情感关怀
+        </span>
+      </div>
+
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:8px;align-items:center">
+        <div style="display:flex;align-items:center;gap:8px">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span style="font-size:14px;color:var(--text-secondary)">报告团队：<strong>我们又行了</strong></span>
+        </div>
+        <span style="font-size:14px;color:var(--text-muted)">2026.7.5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- Fullscreen Button -->
+<button class="fullscreen-btn" id="fullscreenBtn" title="全屏">
+  <svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+</button>
+
+<!-- First Page Hint -->
+<div class="first-page-hint" id="firstPageHint">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg>
+  按 → 或滚轮翻页
+</div>
+
+<!-- Presenter Notes Overlay -->
+<div class="notes-overlay" id="notesOverlay">
+  <div class="notes-label">Speaker Notes (P)</div>
+  <div id="notesContent"></div>
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-dot active" data-goto="0"></button>
+  <button class="nav-dot" data-goto="1"></button>
+  <button class="nav-dot" data-goto="2"></button>
+  <button class="nav-dot" data-goto="3"></button>
+  <button class="nav-dot" data-goto="4"></button>
+  <button class="nav-dot" data-goto="5"></button>
+  <button class="nav-dot" data-goto="6"></button>
+  <button class="nav-dot" data-goto="7"></button>
+  <button class="nav-dot" data-goto="8"></button>
+  <button class="nav-dot" data-goto="9"></button>
+  <button class="nav-dot" data-goto="10"></button>
+  <button class="nav-dot" data-goto="11"></button>
+  <button class="nav-dot" data-goto="12"></button>
+</div>
+
+<div class="page-num"><span id="pageNum">01</span> / 13</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.nav-dot');
+const pageNum = document.getElementById('pageNum');
+const firstPageHint = document.getElementById('firstPageHint');
+const notesOverlay = document.getElementById('notesOverlay');
+const notesContent = document.getElementById('notesContent');
+let current = 0;
+let isAnimating = false;
+let notesVisible = false;
+
+function updateNotes() {
+  const currentSlide = slides[current];
+  const notes = currentSlide.getAttribute('data-notes') || '（无演讲备注）';
+  notesContent.textContent = notes;
+}
+
+function goTo(index) {
+  if (index === current || isAnimating || index < 0 || index >= slides.length) return;
+  isAnimating = true;
+
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+
+  current = index;
+
+  slides[current].classList.add('active');
+  dots[current].classList.add('active');
+  pageNum.textContent = String(current + 1).padStart(2, '0');
+
+  // Hide first page hint after navigating
+  if (current > 0) {
+    firstPageHint.classList.add('hidden');
+  } else {
+    firstPageHint.classList.remove('hidden');
+  }
+
+  // Update notes
+  updateNotes();
+
+  // Re-trigger animations
+  const animElements = slides[current].querySelectorAll('.anim-fade-up, .anim-fade-in, .anim-scale-in, .anim-slide-right');
+  animElements.forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // force reflow
+    el.style.animation = '';
+  });
+
+  setTimeout(() => { isAnimating = false; }, 650);
+}
+
+dots.forEach(dot => {
+  dot.addEventListener('click', () => goTo(parseInt(dot.dataset.goto)));
+});
+
+// Keyboard
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+    e.preventDefault();
+    goTo(current + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    goTo(current - 1);
+  } else if (e.key === 'p' || e.key === 'P') {
+    notesVisible = !notesVisible;
+    notesOverlay.classList.toggle('visible', notesVisible);
+    if (notesVisible) updateNotes();
+  }
+});
+
+// Wheel
+let wheelTimeout;
+document.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  clearTimeout(wheelTimeout);
+  wheelTimeout = setTimeout(() => {
+    if (e.deltaY > 0) goTo(current + 1);
+    else goTo(current - 1);
+  }, 50);
+}, { passive: false });
+
+// Touch
+let touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+  const diff = touchStartY - e.changedTouches[0].clientY;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) goTo(current + 1);
+    else goTo(current - 1);
+  }
+}, { passive: true });
+
+// Fullscreen
+document.getElementById('fullscreenBtn').addEventListener('click', () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(() => {});
+  } else {
+    document.exitFullscreen();
+  }
+});
+
+// Update fullscreen icon on change
+document.addEventListener('fullscreenchange', () => {
+  const btn = document.getElementById('fullscreenBtn');
+  if (document.fullscreenElement) {
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 3v3a2 2 0 0 1-2 2H3"/><path d="M21 8h-3a2 2 0 0 1-2-2V3"/><path d="M3 16h3a2 2 0 0 1 2 2v3"/><path d="M16 21v-3a2 2 0 0 1 2-2h3"/></svg>';
+  } else {
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>';
+  }
+});
+</script>
+</body>
+</html>

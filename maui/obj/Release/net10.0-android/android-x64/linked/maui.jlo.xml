@@ -1,0 +1,64 @@
+<api>
+  <jcw-types>
+    <type name="MainActivity" package="crc64ebab215de862fb6d" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="android.app.Activity" partial_assembly_qualified_name="maui.MainActivity, maui">
+      <constructors>
+        <constructor name="MainActivity" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="onCreate" method="n_onCreate:(Landroid/os/Bundle;)V:GetOnCreate_Landroid_os_Bundle_Handler" jni_signature="(Landroid/os/Bundle;)V" params="android.os.Bundle p0" retval="void" super_call="p0" activate_call="p0" />
+        <method name="onRequestPermissionsResult" method="n_onRequestPermissionsResult:(I[Ljava/lang/String;[I)V:GetOnRequestPermissionsResult_IarrayLjava_lang_String_arrayIHandler" jni_signature="(I[Ljava/lang/String;[I)V" params="int p0, java.lang.String[] p1, int[] p2" retval="void" super_call="p0, p1, p2" activate_call="p0, p1, p2" />
+        <method name="onDestroy" method="n_onDestroy:()V:GetOnDestroyHandler" jni_signature="()V" retval="void" />
+      </methods>
+    </type>
+    <type name="CameraService_ImageListener" package="crc642bf9dc2dd4ff72c8" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.lang.Object" partial_assembly_qualified_name="maui.Services.CameraService+ImageListener, maui">
+      <implemented_interfaces>
+        <interface name="android.media.ImageReader.OnImageAvailableListener" />
+      </implemented_interfaces>
+      <constructors>
+        <constructor name="CameraService_ImageListener" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="onImageAvailable" method="n_onImageAvailable:(Landroid/media/ImageReader;)V:GetOnImageAvailable_Landroid_media_ImageReader_Handler:Android.Media.ImageReader+IOnImageAvailableListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" jni_signature="(Landroid/media/ImageReader;)V" params="android.media.ImageReader p0" retval="void" super_call="p0" activate_call="p0" />
+      </methods>
+    </type>
+    <type name="CameraService_CameraStateCallback" package="crc642bf9dc2dd4ff72c8" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="android.hardware.camera2.CameraDevice.StateCallback" partial_assembly_qualified_name="maui.Services.CameraService+CameraStateCallback, maui">
+      <constructors>
+        <constructor name="CameraService_CameraStateCallback" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="onOpened" method="n_onOpened:(Landroid/hardware/camera2/CameraDevice;)V:GetOnOpened_Landroid_hardware_camera2_CameraDevice_Handler" jni_signature="(Landroid/hardware/camera2/CameraDevice;)V" params="android.hardware.camera2.CameraDevice p0" retval="void" super_call="p0" activate_call="p0" />
+        <method name="onDisconnected" method="n_onDisconnected:(Landroid/hardware/camera2/CameraDevice;)V:GetOnDisconnected_Landroid_hardware_camera2_CameraDevice_Handler" jni_signature="(Landroid/hardware/camera2/CameraDevice;)V" params="android.hardware.camera2.CameraDevice p0" retval="void" super_call="p0" activate_call="p0" />
+        <method name="onError" method="n_onError:(Landroid/hardware/camera2/CameraDevice;I)V:GetOnError_Landroid_hardware_camera2_CameraDevice_IHandler" jni_signature="(Landroid/hardware/camera2/CameraDevice;I)V" params="android.hardware.camera2.CameraDevice p0, int p1" retval="void" super_call="p0, p1" activate_call="p0, p1" />
+      </methods>
+    </type>
+    <type name="CameraService_SessionCallback" package="crc642bf9dc2dd4ff72c8" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="android.hardware.camera2.CameraCaptureSession.StateCallback" partial_assembly_qualified_name="maui.Services.CameraService+SessionCallback, maui">
+      <constructors>
+        <constructor name="CameraService_SessionCallback" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="onConfigured" method="n_onConfigured:(Landroid/hardware/camera2/CameraCaptureSession;)V:GetOnConfigured_Landroid_hardware_camera2_CameraCaptureSession_Handler" jni_signature="(Landroid/hardware/camera2/CameraCaptureSession;)V" params="android.hardware.camera2.CameraCaptureSession p0" retval="void" super_call="p0" activate_call="p0" />
+        <method name="onConfigureFailed" method="n_onConfigureFailed:(Landroid/hardware/camera2/CameraCaptureSession;)V:GetOnConfigureFailed_Landroid_hardware_camera2_CameraCaptureSession_Handler" jni_signature="(Landroid/hardware/camera2/CameraCaptureSession;)V" params="android.hardware.camera2.CameraCaptureSession p0" retval="void" super_call="p0" activate_call="p0" />
+      </methods>
+    </type>
+    <type name="SensorService" package="crc642bf9dc2dd4ff72c8" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.lang.Object" partial_assembly_qualified_name="maui.Services.SensorService, maui">
+      <implemented_interfaces>
+        <interface name="android.hardware.SensorEventListener" />
+      </implemented_interfaces>
+      <constructors>
+        <constructor name="SensorService" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+        <constructor name="SensorService" method="n_.ctor:(Landroid/content/Context;)V:" jni_signature="(Landroid/content/Context;)V" managed_parameters="Android.Content.Context, Mono.Android" params="android.content.Context p0" retval="void" is_dynamically_registered="True" super_call="" activate_call="p0" />
+      </constructors>
+      <methods>
+        <method name="onAccuracyChanged" method="n_onAccuracyChanged:(Landroid/hardware/Sensor;I)V:GetOnAccuracyChanged_Landroid_hardware_Sensor_IHandler:Android.Hardware.ISensorEventListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" jni_signature="(Landroid/hardware/Sensor;I)V" params="android.hardware.Sensor p0, int p1" retval="void" super_call="p0, p1" activate_call="p0, p1" />
+        <method name="onSensorChanged" method="n_onSensorChanged:(Landroid/hardware/SensorEvent;)V:GetOnSensorChanged_Landroid_hardware_SensorEvent_Handler:Android.Hardware.ISensorEventListenerInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" jni_signature="(Landroid/hardware/SensorEvent;)V" params="android.hardware.SensorEvent p0" retval="void" super_call="p0" activate_call="p0" />
+      </methods>
+    </type>
+  </jcw-types>
+  <acw-types partial-assembly-name="maui" module-name="maui.dll">
+    <type assembly-qualified-name="maui.MainActivity, maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="maui.MainActivity" java-key="crc64ebab215de862fb6d.MainActivity" managed-key="maui.MainActivity" partial-assembly-qualified-name="maui.MainActivity, maui" />
+    <type assembly-qualified-name="maui.Services.CameraService+ImageListener, maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="maui.services.CameraService_ImageListener" java-key="crc642bf9dc2dd4ff72c8.CameraService_ImageListener" managed-key="maui.Services.CameraService.ImageListener" partial-assembly-qualified-name="maui.Services.CameraService+ImageListener, maui" />
+    <type assembly-qualified-name="maui.Services.CameraService+CameraStateCallback, maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="maui.services.CameraService_CameraStateCallback" java-key="crc642bf9dc2dd4ff72c8.CameraService_CameraStateCallback" managed-key="maui.Services.CameraService.CameraStateCallback" partial-assembly-qualified-name="maui.Services.CameraService+CameraStateCallback, maui" />
+    <type assembly-qualified-name="maui.Services.CameraService+SessionCallback, maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="maui.services.CameraService_SessionCallback" java-key="crc642bf9dc2dd4ff72c8.CameraService_SessionCallback" managed-key="maui.Services.CameraService.SessionCallback" partial-assembly-qualified-name="maui.Services.CameraService+SessionCallback, maui" />
+    <type assembly-qualified-name="maui.Services.SensorService, maui, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" compat-jni-name="maui.services.SensorService" java-key="crc642bf9dc2dd4ff72c8.SensorService" managed-key="maui.Services.SensorService" partial-assembly-qualified-name="maui.Services.SensorService, maui" />
+  </acw-types>
+</api>

@@ -1,0 +1,63 @@
+<api>
+  <jcw-types>
+    <type name="InputStreamAdapter" package="mono.android.runtime" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.io.InputStream" partial_assembly_qualified_name="Android.Runtime.InputStreamAdapter, Mono.Android">
+      <methods>
+        <method name="close" method="n_close:()V:GetCloseHandler" jni_signature="()V" retval="void" />
+        <method name="read" method="n_read:()I:GetReadHandler" jni_signature="()I" retval="int" />
+        <method name="read" method="n_read:([B)I:GetRead_arrayBHandler" jni_signature="([B)I" params="byte[] p0" retval="int" super_call="p0" activate_call="p0" />
+        <method name="read" method="n_read:([BII)I:GetRead_arrayBIIHandler" jni_signature="([BII)I" params="byte[] p0, int p1, int p2" retval="int" super_call="p0, p1, p2" activate_call="p0, p1, p2" />
+      </methods>
+    </type>
+    <type name="JavaObject" package="mono.android.runtime" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.lang.Object" partial_assembly_qualified_name="Android.Runtime.JavaObject, Mono.Android">
+      <constructors>
+        <constructor name="JavaObject" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="equals" method="n_equals:(Ljava/lang/Object;)Z:GetEquals_Ljava_lang_Object_Handler" jni_signature="(Ljava/lang/Object;)Z" params="java.lang.Object p0" retval="boolean" super_call="p0" activate_call="p0" />
+        <method name="hashCode" method="n_hashCode:()I:GetGetHashCodeHandler" jni_signature="()I" retval="int" />
+        <method name="toString" method="n_toString:()Ljava/lang/String;:GetToStringHandler" jni_signature="()Ljava/lang/String;" retval="java.lang.String" />
+      </methods>
+    </type>
+    <type name="JavaProxyThrowable" package="android.runtime" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.lang.Error" partial_assembly_qualified_name="Android.Runtime.JavaProxyThrowable, Mono.Android">
+      <constructors>
+        <constructor name="JavaProxyThrowable" method="n_.ctor:(Ljava/lang/String;)V:" jni_signature="(Ljava/lang/String;)V" managed_parameters="System.String, System.Private.CoreLib" params="java.lang.String p0" retval="void" is_dynamically_registered="True" super_call="p0" activate_call="p0" />
+      </constructors>
+    </type>
+    <type name="OutputStreamAdapter" package="mono.android.runtime" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.io.OutputStream" partial_assembly_qualified_name="Android.Runtime.OutputStreamAdapter, Mono.Android">
+      <constructors>
+        <constructor name="OutputStreamAdapter" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="System.IO.Stream, System.Private.CoreLib" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="close" method="n_close:()V:GetCloseHandler" jni_signature="()V" retval="void" />
+        <method name="flush" method="n_flush:()V:GetFlushHandler" jni_signature="()V" retval="void" />
+        <method name="write" method="n_write:([B)V:GetWrite_arrayBHandler" jni_signature="([B)V" params="byte[] p0" retval="void" super_call="p0" activate_call="p0" />
+        <method name="write" method="n_write:([BII)V:GetWrite_arrayBIIHandler" jni_signature="([BII)V" params="byte[] p0, int p1, int p2" retval="void" super_call="p0, p1, p2" activate_call="p0, p1, p2" />
+        <method name="write" method="n_write:(I)V:GetWrite_IHandler" jni_signature="(I)V" params="int p0" retval="void" super_call="p0" activate_call="p0" />
+      </methods>
+    </type>
+    <type name="RunnableImplementor" package="mono.java.lang" application_java_class="android.app.Application" mono_runtime_initialization="mono.MonoPackageManager.LoadApplication (context);" extends_type="java.lang.Object" partial_assembly_qualified_name="Java.Lang.Thread+RunnableImplementor, Mono.Android">
+      <implemented_interfaces>
+        <interface name="java.lang.Runnable" />
+      </implemented_interfaces>
+      <constructors>
+        <constructor name="RunnableImplementor" method="n_.ctor:()V:" jni_signature="()V" managed_parameters="" retval="void" is_dynamically_registered="True" />
+      </constructors>
+      <methods>
+        <method name="run" method="n_run:()V:GetRunHandler:Java.Lang.IRunnableInvoker, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" jni_signature="()V" retval="void" />
+      </methods>
+    </type>
+  </jcw-types>
+  <acw-types partial-assembly-name="Mono.Android" module-name="Mono.Android.dll">
+    <type assembly-qualified-name="Android.Util.IAttributeSet, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="android.util.AttributeSet" java-key="android.util.AttributeSet" managed-key="Android.Util.IAttributeSet" partial-assembly-qualified-name="Android.Util.IAttributeSet, Mono.Android" />
+    <type assembly-qualified-name="Android.Media.ImageReader+IOnImageAvailableListener, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="android.media.ImageReader$OnImageAvailableListener" java-key="android.media.ImageReader$OnImageAvailableListener" managed-key="Android.Media.ImageReader.IOnImageAvailableListener" partial-assembly-qualified-name="Android.Media.ImageReader+IOnImageAvailableListener, Mono.Android" />
+    <type assembly-qualified-name="Android.Runtime.InputStreamAdapter, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="mono.android.runtime.InputStreamAdapter" java-key="mono.android.runtime.InputStreamAdapter" managed-key="Android.Runtime.InputStreamAdapter" partial-assembly-qualified-name="Android.Runtime.InputStreamAdapter, Mono.Android" />
+    <type assembly-qualified-name="Android.Runtime.JavaObject, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="mono.android.runtime.JavaObject" java-key="mono.android.runtime.JavaObject" managed-key="Android.Runtime.JavaObject" partial-assembly-qualified-name="Android.Runtime.JavaObject, Mono.Android" />
+    <type assembly-qualified-name="Android.Runtime.JavaProxyThrowable, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="android.runtime.JavaProxyThrowable" java-key="android.runtime.JavaProxyThrowable" managed-key="Android.Runtime.JavaProxyThrowable" partial-assembly-qualified-name="Android.Runtime.JavaProxyThrowable, Mono.Android" />
+    <type assembly-qualified-name="Android.Runtime.OutputStreamAdapter, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="mono.android.runtime.OutputStreamAdapter" java-key="mono.android.runtime.OutputStreamAdapter" managed-key="Android.Runtime.OutputStreamAdapter" partial-assembly-qualified-name="Android.Runtime.OutputStreamAdapter, Mono.Android" />
+    <type assembly-qualified-name="Android.Hardware.ISensorEventListener, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="android.hardware.SensorEventListener" java-key="android.hardware.SensorEventListener" managed-key="Android.Hardware.ISensorEventListener" partial-assembly-qualified-name="Android.Hardware.ISensorEventListener, Mono.Android" />
+    <type assembly-qualified-name="Java.Util.IIterator, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="java.util.Iterator" java-key="java.util.Iterator" managed-key="Java.Util.IIterator" partial-assembly-qualified-name="Java.Util.IIterator, Mono.Android" />
+    <type assembly-qualified-name="Java.Util.Functions.IConsumer, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="java.util.function.Consumer" java-key="java.util.function.Consumer" managed-key="Java.Util.Functions.IConsumer" partial-assembly-qualified-name="Java.Util.Functions.IConsumer, Mono.Android" />
+    <type assembly-qualified-name="Java.Lang.Thread+RunnableImplementor, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="mono.java.lang.RunnableImplementor" java-key="mono.java.lang.RunnableImplementor" managed-key="Java.Lang.Thread.RunnableImplementor" partial-assembly-qualified-name="Java.Lang.Thread+RunnableImplementor, Mono.Android" />
+    <type assembly-qualified-name="Java.Lang.IRunnable, Mono.Android, Version=0.0.0.0, Culture=neutral, PublicKeyToken=84e04ff9cfb79065" compat-jni-name="java.lang.Runnable" java-key="java.lang.Runnable" managed-key="Java.Lang.IRunnable" partial-assembly-qualified-name="Java.Lang.IRunnable, Mono.Android" />
+  </acw-types>
+</api>

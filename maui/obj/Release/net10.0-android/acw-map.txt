@@ -1,0 +1,48 @@
+Android.Hardware.ISensorEventListener, Mono.Android;android.hardware.SensorEventListener
+Android.Hardware.ISensorEventListener;android.hardware.SensorEventListener
+android.hardware.SensorEventListener;android.hardware.SensorEventListener
+Android.Media.ImageReader+IOnImageAvailableListener, Mono.Android;android.media.ImageReader$OnImageAvailableListener
+Android.Media.ImageReader.IOnImageAvailableListener;android.media.ImageReader$OnImageAvailableListener
+android.media.ImageReader$OnImageAvailableListener;android.media.ImageReader$OnImageAvailableListener
+Android.Runtime.InputStreamAdapter, Mono.Android;mono.android.runtime.InputStreamAdapter
+Android.Runtime.InputStreamAdapter;mono.android.runtime.InputStreamAdapter
+mono.android.runtime.InputStreamAdapter;mono.android.runtime.InputStreamAdapter
+Android.Runtime.JavaObject, Mono.Android;mono.android.runtime.JavaObject
+Android.Runtime.JavaObject;mono.android.runtime.JavaObject
+mono.android.runtime.JavaObject;mono.android.runtime.JavaObject
+Android.Runtime.JavaProxyThrowable, Mono.Android;android.runtime.JavaProxyThrowable
+Android.Runtime.JavaProxyThrowable;android.runtime.JavaProxyThrowable
+android.runtime.JavaProxyThrowable;android.runtime.JavaProxyThrowable
+Android.Runtime.OutputStreamAdapter, Mono.Android;mono.android.runtime.OutputStreamAdapter
+Android.Runtime.OutputStreamAdapter;mono.android.runtime.OutputStreamAdapter
+mono.android.runtime.OutputStreamAdapter;mono.android.runtime.OutputStreamAdapter
+Android.Util.IAttributeSet, Mono.Android;android.util.AttributeSet
+Android.Util.IAttributeSet;android.util.AttributeSet
+android.util.AttributeSet;android.util.AttributeSet
+Java.Lang.IRunnable, Mono.Android;java.lang.Runnable
+Java.Lang.IRunnable;java.lang.Runnable
+java.lang.Runnable;java.lang.Runnable
+Java.Lang.Thread+RunnableImplementor, Mono.Android;mono.java.lang.RunnableImplementor
+Java.Lang.Thread.RunnableImplementor;mono.java.lang.RunnableImplementor
+mono.java.lang.RunnableImplementor;mono.java.lang.RunnableImplementor
+Java.Util.Functions.IConsumer, Mono.Android;java.util.function.Consumer
+Java.Util.Functions.IConsumer;java.util.function.Consumer
+java.util.function.Consumer;java.util.function.Consumer
+Java.Util.IIterator, Mono.Android;java.util.Iterator
+Java.Util.IIterator;java.util.Iterator
+java.util.Iterator;java.util.Iterator
+maui.MainActivity, maui;crc64ebab215de862fb6d.MainActivity
+maui.MainActivity;crc64ebab215de862fb6d.MainActivity
+maui.MainActivity;crc64ebab215de862fb6d.MainActivity
+maui.Services.CameraService+CameraStateCallback, maui;crc642bf9dc2dd4ff72c8.CameraService_CameraStateCallback
+maui.Services.CameraService.CameraStateCallback;crc642bf9dc2dd4ff72c8.CameraService_CameraStateCallback
+maui.services.CameraService_CameraStateCallback;crc642bf9dc2dd4ff72c8.CameraService_CameraStateCallback
+maui.Services.CameraService+ImageListener, maui;crc642bf9dc2dd4ff72c8.CameraService_ImageListener
+maui.Services.CameraService.ImageListener;crc642bf9dc2dd4ff72c8.CameraService_ImageListener
+maui.services.CameraService_ImageListener;crc642bf9dc2dd4ff72c8.CameraService_ImageListener
+maui.Services.CameraService+SessionCallback, maui;crc642bf9dc2dd4ff72c8.CameraService_SessionCallback
+maui.Services.CameraService.SessionCallback;crc642bf9dc2dd4ff72c8.CameraService_SessionCallback
+maui.services.CameraService_SessionCallback;crc642bf9dc2dd4ff72c8.CameraService_SessionCallback
+maui.Services.SensorService, maui;crc642bf9dc2dd4ff72c8.SensorService
+maui.Services.SensorService;crc642bf9dc2dd4ff72c8.SensorService
+maui.services.SensorService;crc642bf9dc2dd4ff72c8.SensorService

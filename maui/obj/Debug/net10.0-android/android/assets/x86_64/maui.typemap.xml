@@ -1,0 +1,16 @@
+<api type="debug" assembly-name="maui" mvid="20973644a1384957b5db44f8ed257769">
+  <java-to-managed>
+    <entry java-name="crc64ebab215de862fb6d/MainActivity" managed-name="maui.MainActivity, maui" managed-type-token-id="33554441" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/CameraService_ImageListener" managed-name="maui.Services.CameraService+ImageListener, maui" managed-type-token-id="33554446" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/CameraService_CameraStateCallback" managed-name="maui.Services.CameraService+CameraStateCallback, maui" managed-type-token-id="33554447" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/CameraService_SessionCallback" managed-name="maui.Services.CameraService+SessionCallback, maui" managed-type-token-id="33554448" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/SensorService" managed-name="maui.Services.SensorService, maui" managed-type-token-id="33554445" />
+  </java-to-managed>
+  <managed-to-java>
+    <entry java-name="crc64ebab215de862fb6d/MainActivity" managed-name="maui.MainActivity, maui" managed-type-token-id="33554441" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/CameraService_ImageListener" managed-name="maui.Services.CameraService+ImageListener, maui" managed-type-token-id="33554446" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/CameraService_CameraStateCallback" managed-name="maui.Services.CameraService+CameraStateCallback, maui" managed-type-token-id="33554447" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/CameraService_SessionCallback" managed-name="maui.Services.CameraService+SessionCallback, maui" managed-type-token-id="33554448" />
+    <entry java-name="crc642bf9dc2dd4ff72c8/SensorService" managed-name="maui.Services.SensorService, maui" managed-type-token-id="33554445" />
+  </managed-to-java>
+</api>
