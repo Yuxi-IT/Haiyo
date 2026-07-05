@@ -1,0 +1,79 @@
+QQ20260705-104215-HD.mp4
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.pnp.*
+
+# Build output
+dist/
+build/
+out/
+*.min.js
+*.min.css
+
+# TypeScript
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+*.egg
+.eggs/
+venv/
+env/
+.env
+
+# .NET MAUI
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstats
+
+# IDE
+.vscode/
+.vs/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+*.lcov
+.nyc_output/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Compiled files
+*.o
+*.obj
+*.class
+*.jar
+*.war
+*.ear
+*.dll
+*.a
+*.lib
+
+# Secrets
+.env
+.env.*
+!.env.example

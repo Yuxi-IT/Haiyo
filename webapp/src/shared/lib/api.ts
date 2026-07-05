@@ -1,4 +1,4 @@
-import { getAccessToken } from './auth';
+import { getAccessToken, getRefreshToken, tryRefresh } from './auth';
 
 const BASE = '/api';
 
@@ -10,8 +10,26 @@ async function request<T>(path: string, options?: RequestInit): Promise<T> {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${BASE}${path}`, { ...options, headers });
-  const data = await res.json();
+  let res = await fetch(`${BASE}${path}`, { ...options, headers });
+  let data = await res.json();
+
+  // 如果返回"请先登录"类错误且有 refresh token，尝试刷新后重试
+  if (
+    (!res.ok || data?.success === false) &&
+    (data?.error?.includes('登录') || data?.error?.includes('token') || res.status === 401) &&
+    getRefreshToken()
+  ) {
+    const user = await tryRefresh();
+    if (user) {
+      const newToken = getAccessToken();
+      if (newToken) {
+        headers['Authorization'] = `Bearer ${newToken}`;
+      }
+      res = await fetch(`${BASE}${path}`, { ...options, headers });
+      data = await res.json();
+    }
+  }
+
   if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
   return data;
 }

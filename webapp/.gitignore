@@ -134,3 +134,35 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Build output
+build/
+out/
+*.min.js
+*.min.css
+
+# Compiled files
+*.o
+*.obj
+*.class
+*.jar
+*.war
+*.ear
+*.so
+*.dylib
+*.dll
+*.a
+*.lib
+
+# TypeScript compiled output
+*.tsbuildinfo
+
+# Vite build output
+dist/
+
+# Temporary files
+*.tmp
+*.temp
+.swp
+.swo
+*~

@@ -276,8 +276,8 @@ export async function handleTtsWebSocket(ws: any): Promise<void> {
     cleanup();
 
     const config = await getDoubaoConfig();
-    if (!config.apiKey) {
-      sendError('豆包 API Key 未配置');
+    if (!config.accessToken || !config.appId) {
+      sendError('豆包 TTS 未配置 Access Token / APP ID');
       return;
     }
 
@@ -288,9 +288,10 @@ export async function handleTtsWebSocket(ws: any): Promise<void> {
     return new Promise<void>((resolve) => {
       upstreamWs = new WebSocket(TTS_ENDPOINT, {
         headers: {
-          'X-Api-Key': config.apiKey,
           'X-Api-Resource-Id': TTS_RESOURCE_ID,
           'X-Api-Request-Id': requestId,
+          'X-Api-Access-Key': config.accessToken,
+          'X-Api-App-Key': config.appId,
         },
       } as any);
 

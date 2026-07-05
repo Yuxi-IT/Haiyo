@@ -135,27 +135,39 @@ export function VoiceTab() {
         <p className="text-xs text-neutral-400">配置豆包大模型 ASR/TTS，用于 Chat 页面的连续语音对话</p>
 
         <TextField
-          defaultValue={String(getVal('voice.doubao_api_key', ''))}
-          onBlur={(e) => updateSetting('voice.doubao_api_key', (e.target as HTMLInputElement).value)}
+          defaultValue={String(getVal('voice.doubao_app_id', ''))}
+          onBlur={(e) => updateSetting('voice.doubao_app_id', (e.target as HTMLInputElement).value)}
         >
           <Label className="flex items-center gap-1.5">
             <Key className="size-3.5" />
-            豆包 Access Key
+            APP ID
           </Label>
-          <Description>在火山引擎控制台获取 Access Key</Description>
-          <Input type="password" placeholder="输入 Access Key..." />
+          <Description>火山引擎控制台的应用 ID</Description>
+          <Input placeholder="输入 APP ID..." />
         </TextField>
 
         <TextField
-          defaultValue={String(getVal('voice.doubao_app_key', ''))}
-          onBlur={(e) => updateSetting('voice.doubao_app_key', (e.target as HTMLInputElement).value)}
+          defaultValue={String(getVal('voice.doubao_access_token', ''))}
+          onBlur={(e) => updateSetting('voice.doubao_access_token', (e.target as HTMLInputElement).value)}
         >
           <Label className="flex items-center gap-1.5">
             <Key className="size-3.5" />
-            豆包 App Key
+            Access Token
           </Label>
-          <Description>在火山引擎控制台获取 App Key</Description>
-          <Input type="password" placeholder="输入 App Key..." />
+          <Description>火山引擎控制台获取的 Access Token</Description>
+          <Input type="password" placeholder="输入 Access Token..." />
+        </TextField>
+
+        <TextField
+          defaultValue={String(getVal('voice.doubao_secret_key', ''))}
+          onBlur={(e) => updateSetting('voice.doubao_secret_key', (e.target as HTMLInputElement).value)}
+        >
+          <Label className="flex items-center gap-1.5">
+            <Key className="size-3.5" />
+            Secret Key
+          </Label>
+          <Description>火山引擎控制台获取的 Secret Key</Description>
+          <Input type="password" placeholder="输入 Secret Key..." />
         </TextField>
 
         <TextField

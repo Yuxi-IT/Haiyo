@@ -219,7 +219,7 @@ export function VoiceMode({ isOpen, onClose, onSubmit }: VoiceModeProps) {
       const bufferSize = Math.round(16000 * CHUNK_INTERVAL / 1000);
       // bufferSize 必须是 2 的幂
       const nearestPow2 = Math.pow(2, Math.ceil(Math.log2(bufferSize)));
-      const processor = audioCtx.createScriptProcessor(nearestPow2 as number, 1, 1);
+      const processor = audioCtx.createScriptProcessor(nearestPow2, 1, 1);
       processorRef.current = processor;
 
       processor.onaudioprocess = (e) => {
@@ -230,7 +230,7 @@ export function VoiceMode({ isOpen, onClose, onSubmit }: VoiceModeProps) {
         // 计算 RMS 能量
         let sum = 0;
         for (let i = 0; i < inputData.length; i++) {
-          sum += inputData[i] * inputData[i];
+          sum += inputData[i]! * inputData[i]!;
         }
         const rms = Math.sqrt(sum / inputData.length);
 
@@ -251,7 +251,7 @@ export function VoiceMode({ isOpen, onClose, onSubmit }: VoiceModeProps) {
         // 转换为 16-bit PCM
         const pcm = new Int16Array(inputData.length);
         for (let i = 0; i < inputData.length; i++) {
-          const s = Math.max(-1, Math.min(1, inputData[i]));
+          const s = Math.max(-1, Math.min(1, inputData[i]!));
           pcm[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
         }
 

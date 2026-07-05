@@ -74,7 +74,12 @@ export function AlbumDetailPage() {
       const formData = new FormData();
       formData.append('file', file);
 
-      await fetch(`/api/albums/${id}/photos`, { method: 'POST', body: formData });
+      const headers: Record<string, string> = {};
+      const { getAccessToken } = await import('../../shared/lib/auth');
+      const token = getAccessToken();
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      await fetch(`/api/albums/${id}/photos`, { method: 'POST', body: formData, headers });
       setUploadProgress({ done: i + 1, total: pendingFiles.length });
     }
 

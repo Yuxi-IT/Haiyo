@@ -233,8 +233,8 @@ export async function handleAsrWebSocket(ws: any): Promise<void> {
   try {
     // 1. 读取豆包 ASR 配置
     const config = await getDoubaoConfig();
-    if (!config.apiKey || !config.appKey) {
-      ws.send(JSON.stringify({ type: 'error', message: '豆包 ASR 未配置 API Key / App Key' }));
+    if (!config.accessToken || !config.appId) {
+      ws.send(JSON.stringify({ type: 'error', message: '豆包 ASR 未配置 Access Token / APP ID' }));
       ws.close();
       return;
     }
@@ -245,8 +245,8 @@ export async function handleAsrWebSocket(ws: any): Promise<void> {
       headers: {
         'X-Api-Resource-Id': config.asrResourceId || DEFAULT_RESOURCE_ID,
         'X-Api-Request-Id': requestId,
-        'X-Api-Access-Key': config.apiKey,
-        'X-Api-App-Key': config.appKey,
+        'X-Api-Access-Key': config.accessToken,
+        'X-Api-App-Key': config.appId,
       },
     } as any);
 

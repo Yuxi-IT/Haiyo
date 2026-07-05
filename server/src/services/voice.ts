@@ -8,8 +8,9 @@ interface VoiceConfig {
 }
 
 export interface DoubaoConfig {
-  apiKey: string;
-  appKey: string;
+  appId: string;         // APP ID (对应 X-Api-App-Key)
+  accessToken: string;   // Access Token (对应 X-Api-Access-Key)
+  secretKey: string;     // Secret Key
   asrResourceId: string;
   ttsSpeaker: string;
 }
@@ -33,8 +34,9 @@ export async function getDoubaoConfig(): Promise<DoubaoConfig> {
   for (const s of settings) map[s.key] = s.value;
 
   return {
-    apiKey: (map['voice.doubao_api_key'] as string) || '',
-    appKey: (map['voice.doubao_app_key'] as string) || '',
+    appId: (map['voice.doubao_app_id'] as string) || '',
+    accessToken: (map['voice.doubao_access_token'] as string) || '',
+    secretKey: (map['voice.doubao_secret_key'] as string) || '',
     asrResourceId: (map['voice.doubao_asr_resource_id'] as string) || 'volc.bigasr.sauc.duration',
     ttsSpeaker: (map['voice.doubao_tts_speaker'] as string) || 'zh_female_cancan',
   };
